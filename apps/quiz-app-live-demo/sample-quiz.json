@@ -1,0 +1,105 @@
+{
+  "title": "JavaScript Fundamentals Quiz",
+  "questions": [
+    {
+      "question": "What is the correct way to declare a variable in JavaScript?",
+      "options": [
+        "var myVar = 5;",
+        "variable myVar = 5;",
+        "v myVar = 5;",
+        "declare myVar = 5;"
+      ],
+      "correctAnswer": 0
+    },
+    {
+      "question": "Which of the following is NOT a JavaScript data type?",
+      "options": [
+        "String",
+        "Boolean",
+        "Float",
+        "Object"
+      ],
+      "correctAnswer": 2
+    },
+    {
+      "question": "What does the '===' operator do in JavaScript?",
+      "options": [
+        "Assigns a value to a variable",
+        "Compares values for equality without type conversion",
+        "Compares values for equality with type conversion",
+        "Checks if a variable is defined"
+      ],
+      "correctAnswer": 1
+    },
+    {
+      "question": "Which method is used to add an element to the end of an array?",
+      "options": [
+        "array.push()",
+        "array.add()",
+        "array.append()",
+        "array.insert()"
+      ],
+      "correctAnswer": 0
+    },
+    {
+      "question": "What will be the output of: console.log(typeof null);",
+      "options": [
+        "null",
+        "undefined",
+        "object",
+        "string"
+      ],
+      "correctAnswer": 2
+    },
+    {
+      "question": "Which keyword is used to declare a function in JavaScript?",
+      "options": [
+        "function",
+        "def",
+        "func",
+        "declare"
+      ],
+      "correctAnswer": 0
+    },
+    {
+      "question": "What is the purpose of the 'use strict' directive?",
+      "options": [
+        "To enable strict mode for better error checking",
+        "To disable all JavaScript features",
+        "To make the code run faster",
+        "To enable debugging mode"
+      ],
+      "correctAnswer": 0
+    },
+    {
+      "question": "Which of the following is a valid way to create an object in JavaScript?",
+      "options": [
+        "var obj = new Object();",
+        "var obj = {};",
+        "var obj = Object.create();",
+        "All of the above"
+      ],
+      "correctAnswer": 3
+    },
+    {
+      "question": "What does the 'this' keyword refer to in JavaScript?",
+      "options": [
+        "The current function",
+        "The current object",
+        "The global object",
+        "It depends on how the function is called"
+      ],
+      "correctAnswer": 3
+    },
+    {
+      "question": "Which method is used to convert a string to a number in JavaScript?",
+      "options": [
+        "parseInt()",
+        "parseFloat()",
+        "Number()",
+        "All of the above"
+      ],
+      "correctAnswer": 3
+    }
+  ]
+}

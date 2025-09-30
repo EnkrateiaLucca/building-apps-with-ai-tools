@@ -1,0 +1,205 @@
+{
+  "title": "Building the Quiz App - Study Questions",
+  "questions": [
+    {
+      "question": "What CSS property creates the purple gradient background effect in the body?",
+      "options": [
+        "background-color: gradient(purple);",
+        "background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);",
+        "background-image: radial-gradient(purple);",
+        "background: repeating-gradient(purple);"
+      ],
+      "correctAnswer": 1
+    },
+    {
+      "question": "How does the app show/hide different screens (start, quiz, results)?",
+      "options": [
+        "Uses separate HTML pages and redirects",
+        "Uses visibility: hidden CSS property",
+        "Adds/removes 'active' class which changes display property",
+        "Uses z-index to layer screens on top of each other"
+      ],
+      "correctAnswer": 2
+    },
+    {
+      "question": "What data structure stores the user's answers during the quiz?",
+      "options": [
+        "An object with question IDs as keys",
+        "A string with comma-separated values",
+        "An array initialized with null values",
+        "A Set of selected answer indices"
+      ],
+      "correctAnswer": 2
+    },
+    {
+      "question": "What CSS technique is used to make the container card appear elevated?",
+      "options": [
+        "border: 3px solid black",
+        "transform: translateZ(50px)",
+        "box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3)",
+        "filter: drop-shadow()"
+      ],
+      "correctAnswer": 2
+    },
+    {
+      "question": "How is the progress bar width calculated and updated?",
+      "options": [
+        "CSS animation from 0% to 100%",
+        "JavaScript: ((currentQuestion + 1) / totalQuestions) * 100",
+        "HTML5 <progress> element",
+        "jQuery animate() function"
+      ],
+      "correctAnswer": 1
+    },
+    {
+      "question": "What happens when a user clicks an option in the quiz?",
+      "options": [
+        "The answer is immediately checked for correctness",
+        "The index is stored in userAnswers array and CSS class 'selected' is added",
+        "A form is submitted to the server",
+        "The next question automatically loads"
+      ],
+      "correctAnswer": 1
+    },
+    {
+      "question": "Where is all the CSS code located in this single-file app?",
+      "options": [
+        "In an external .css file",
+        "Inline in each HTML element's style attribute",
+        "Inside <style> tags in the <head> section",
+        "Dynamically injected by JavaScript"
+      ],
+      "correctAnswer": 2
+    },
+    {
+      "question": "How does the app prevent going back from the first question?",
+      "options": [
+        "The Previous button is hidden with display: none",
+        "The Previous button is disabled when currentQuestion === 0",
+        "An alert() prevents the action",
+        "The onclick handler returns false"
+      ],
+      "correctAnswer": 1
+    },
+    {
+      "question": "What JavaScript method creates the option elements dynamically?",
+      "options": [
+        "document.write()",
+        "innerHTML = '<div>option</div>'",
+        "document.createElement() and appendChild()",
+        "jQuery append()"
+      ],
+      "correctAnswer": 2
+    },
+    {
+      "question": "How are event handlers attached to the option divs?",
+      "options": [
+        "addEventListener('click', function)",
+        "onclick attribute in HTML",
+        "optionDiv.onclick = () => selectOption(index)",
+        "jQuery .on('click')"
+      ],
+      "correctAnswer": 2
+    },
+    {
+      "question": "What CSS property makes the container responsive on small screens?",
+      "options": [
+        "width: 100% with max-width: 700px",
+        "flex: 1",
+        "grid-template-columns: repeat(auto-fit)",
+        "position: relative"
+      ],
+      "correctAnswer": 0
+    },
+    {
+      "question": "How does the app calculate the final score?",
+      "options": [
+        "Counts elements with class 'correct'",
+        "Loops through userAnswers and compares with correctAnswer in quizData",
+        "Server-side API call",
+        "Checks localStorage for score"
+      ],
+      "correctAnswer": 1
+    },
+    {
+      "question": "What triggers when the page first loads?",
+      "options": [
+        "startQuiz() function runs immediately",
+        "window.onload calls initQuiz() to set up the quiz",
+        "An AJAX request loads questions",
+        "Nothing, user must click Start"
+      ],
+      "correctAnswer": 1
+    },
+    {
+      "question": "How are the quiz questions and answers stored in the app?",
+      "options": [
+        "In a MySQL database",
+        "In browser localStorage",
+        "As a JavaScript object assigned to const quizData",
+        "In cookies"
+      ],
+      "correctAnswer": 2
+    },
+    {
+      "question": "What makes the option buttons change appearance on hover?",
+      "options": [
+        "JavaScript mouseover event listener",
+        "CSS :hover pseudo-class with transitions",
+        "jQuery hover() function",
+        "CSS animations"
+      ],
+      "correctAnswer": 1
+    },
+    {
+      "question": "How does the Next button change to 'Finish' on the last question?",
+      "options": [
+        "It's a completely different button that's shown/hidden",
+        "CSS content property changes the text",
+        "JavaScript checks if currentQuestion === length-1 and changes textContent",
+        "HTML data attribute is modified"
+      ],
+      "correctAnswer": 2
+    },
+    {
+      "question": "What CSS unit is primarily used for spacing (padding, margins)?",
+      "options": [
+        "em (relative to font size)",
+        "% (percentage)",
+        "px (pixels)",
+        "rem (relative to root)"
+      ],
+      "correctAnswer": 2
+    },
+    {
+      "question": "How does the app maintain state when navigating between questions?",
+      "options": [
+        "sessionStorage API",
+        "Global JavaScript variables like currentQuestion and userAnswers",
+        "URL query parameters",
+        "Redux store"
+      ],
+      "correctAnswer": 1
+    },
+    {
+      "question": "What creates the circular score display on the results screen?",
+      "options": [
+        "SVG circle element",
+        "Canvas API drawing",
+        "CSS border-radius: 50% on a square div",
+        "An image file"
+      ],
+      "correctAnswer": 2
+    },
+    {
+      "question": "How would you add file upload functionality to replace the hardcoded questions?",
+      "options": [
+        "Use <input type='file'> and FileReader API to parse JSON",
+        "Use fetch() to load from a URL",
+        "Use <form> with method='POST'",
+        "Use WebSocket connection"
+      ],
+      "correctAnswer": 0
+    }
+  ]
+}

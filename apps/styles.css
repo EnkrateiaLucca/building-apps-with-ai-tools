@@ -1,0 +1,30 @@
+body {
+  background: #fff;
+  color: #111;
+  font-family: system-ui, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+main {
+  text-align: center;
+  padding: 2rem 1rem;
+  border: 1px solid #222;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  max-width: 400px;
+  width: 100%;
+}
+h1 {
+  font-size: 1.7rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+p {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 0;
+}

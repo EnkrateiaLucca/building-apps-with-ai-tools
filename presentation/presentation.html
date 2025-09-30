@@ -23,7 +23,7 @@ class: center, middle, title-slide
 # Building Simple Web Apps with AI Tools 
 
 ### Lucas Soares, Instructor
-### March 20, 2025
+### September 30, 2025
 ---
 
 
@@ -349,9 +349,7 @@ class: center, middle
 
 ---
 class: center, middle
-Build me a welcome page for this course I'm working on (presentation slides are in @presentation.html )
 
-Make the webpage in pure .html and javscript within a single file, make it sleak, modern minimalistic design and some cool functional interactive features.
 <div style="display: flex; justify-content: center; align-items: center; height: 70vh;">
   <img src="../assets/2025-09-30-12-40-58.png" width="100%">
 </div>
@@ -536,6 +534,14 @@ class: center, middle
 
 --
 
+- **Task Breakdown**: Break features into smallest possible tasks
+
+  - Clear, actionable items for AI assistance
+
+  - Optionally: use a `task_breakdown.md` for step-by-step implementation
+
+--
+
 - Control Cursor's agents behavior
 
   - Cursor rules .mdc files
@@ -543,6 +549,16 @@ class: center, middle
 --
 
   - `AGENTS.md` files in Cursor
+
+---
+
+# Writing Detailed Spec Docs <img src="../assets/2025-03-17-16-56-27.png" width="40px" alt="Document icon" style="vertical-align: middle; margin-left: 15px;" />
+
+- **Project Status Tracking**: `Project_Status.md` for progress
+
+  - Update at end of each session
+
+  - Resume seamlessly next time
 
 --
 
@@ -552,19 +568,88 @@ class: center, middle
 
   - Leverage MCP for adding functionality to Cursor's agents
 
+--
+
+- **Documentation Sync**: Use `@Docs` for official documentation
+
+  - Ensures accurate, up-to-date references
+
 ---
 
 # Build
 
-- Prototype with Claude Artifacts
+- Prototype with Claude Artifacts/Build through dialog with Cursor
 
 --
 
-- Build through dialog with Cursor in Agentic Mode <img src="../assets/2025-03-17-16-56-27.png" width="40px" alt="Document icon" style="vertical-align: middle; margin-left: 15px;" />
+- **Structured Implementation**:
+
+  - Follow task breakdown step by step (optionally: `task_breakdown.md`)
+
+  - Tackle features one by one from the breakdown
+
+  - Reference context files for each task
+
+--
+
+- **UI Refinement**: Use design inspiration
+
+  - Upload screenshots from websites/apps you like (tools: Dribbble/Behance)
+
+  - Prompt: "Replicate this design, keeping current copy and colors"
+
+--
+
+- **Progress Tracking**: Update Project_Status.md
+
+  - End each session with status update
+
+  - Resume next time: "Read Project Status and continue"
 
 ---
 
-<div style="display: flex; justify-content: center; align-items: center; height: 70vh;">
+# Key Workflow Principles
+
+## Plan Everything Upfront
+- Clear PRD, task breakdown, and context files
+
+- Structured approach reduces AI hallucinations
+
+- Better output accuracy with proper context
+
+--
+
+## Use AI Tools' Strengths
+
+- Combine AI assistance with manual coding
+
+- Leverage context files and documentation sync
+
+- Iterate effectively with design inspiration
+
+---
+
+## Maintain Context Continuity
+
+- Project Status tracking between sessions
+
+- Clear file responsibilities and references
+
+- Seamless development process
+
+--
+
+## Focus on Quality
+
+- Review AI-generated code thoroughly
+
+- Test across different scenarios
+
+- Refine UI with external inspiration
+
+---
+
+<div style="display: flex; justify-content: center; align-items: center; height: 110vh;">
   <img src="../assets/andrej-tweet.png" width="60%">
 </div>
 
@@ -584,7 +669,7 @@ class: center, middle
 
 ---
 
-# Cursor Spec Doc Template
+# Spec Doc Template
 
 ```markdown
 # Quiz Application Specification
@@ -604,15 +689,20 @@ Create a simple quiz application that allows users to test their knowledge on va
 - Local storage for saving progress
 - No external dependencies
 ```
-
 ---
 
-# CursorRules Files
+# Cursor Project Rules Files
 
-CursorRules help maintain consistency in AI-generated code:
+Cursor Project Rules: consistency and context for AI-generated code:
 
 ```markdown
 # `/.cursor/rules`
+
+## Project Context
+- If you need information regarding the UI, refer to UI_Development_Plan.md
+- For database queries, refer to DB_Design.md
+- For task progress, check Project_Status.md
+- Always reference @Docs for official documentation
 
 ## Coding Standards
 - Use camelCase for variables and functions
@@ -624,6 +714,13 @@ CursorRules help maintain consistency in AI-generated code:
 - Keep components in separate files
 - Store utility functions in utils.js
 - Use consistent error handling
+- Update Project_Status.md at end of sessions
+
+## AI Assistance Guidelines
+- Break tasks into smallest possible steps
+- Reference context files for each task
+- Use design inspiration for UI refinement
+- Always review and test generated code
 ```
 
 ---
@@ -709,6 +806,11 @@ class: center, middle
 
 # No-Code/Low-Code AI Tools
 
+- **Lovable**
+  - Create full stack apps by chatting with AI
+  - DB integration
+  - Prototype more complex functionality fast
+
 - **Vercel V0**
   - Text-to-interface generation
   - React component creation
@@ -723,11 +825,6 @@ class: center, middle
   - Model deployment
   - API access to various AI models
   - Custom model hosting
-
-- **Together.ai**
-  - AI orchestration
-  - Model fine-tuning
-  - Enterprise-grade infrastructure
 
 ---
   

@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pineapple Eating Pineapple Animation</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+      background-size: 400% 400%;
+      animation: gradientShift 8s ease infinite;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      text-align: center;
+      z-index: 10;
+    }
+
+    h1 {
+      color: #fff;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+
+    .subtitle {
+      color: #fff;
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      opacity: 0.9;
+    }
+
+    #animationCanvas {
+      border: 3px solid #fff;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .controls {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      background: rgba(255,255,255,0.2);
+      border: 2px solid #fff;
+      color: #fff;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    button:hover {
+      background: rgba(255,255,255,0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .stats {
+      margin-top: 1rem;
+      color: #fff;
+      font-size: 1rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .floating-pineapples {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .floating-pineapple {
+      position: absolute;
+      font-size: 2rem;
+      animation: float 6s ease-in-out infinite;
+      opacity: 0.3;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(180deg); }
+    }
+
+    .floating-pineapple:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+    .floating-pineapple:nth-child(2) { top: 20%; right: 15%; animation-delay: 1s; }
+    .floating-pineapple:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 2s; }
+    .floating-pineapple:nth-child(4) { bottom: 15%; right: 25%; animation-delay: 3s; }
+    .floating-pineapple:nth-child(5) { top: 50%; left: 5%; animation-delay: 4s; }
+    .floating-pineapple:nth-child(6) { top: 60%; right: 5%; animation-delay: 5s; }
+  </style>
+</head>
+<body>
+  <div class="floating-pineapples">
+    <div class="floating-pineapple">🍍</div>
+    <div class="floating-pineapple">🍍</div>
+    <div class="floating-pineapple">🍍</div>
+    <div class="floating-pineapple">🍍</div>
+    <div class="floating-pineapple">🍍</div>
+    <div class="floating-pineapple">🍍</div>
+  </div>
+
+  <div class="container">
+    <h1>🍍 Pineapple Cannibalism 🍍</h1>
+    <p class="subtitle">Watch as one pineapple devours another in this epic battle!</p>
+    
+    <canvas id="animationCanvas" width="600" height="400"></canvas>
+    
+    <div class="controls">
+      <button onclick="startAnimation()">Start Animation</button>
+      <button onclick="pauseAnimation()">Pause</button>
+      <button onclick="resetAnimation()">Reset</button>
+      <button onclick="toggleSpeed()">Speed Up</button>
+    </div>
+    
+    <div class="stats">
+      <p>Score: <span id="score">0</span> | Speed: <span id="speed">Normal</span></p>
+    </div>
+  </div>
+
+  <script>
+    'use strict';
+
+    class PineappleAnimation {
+      constructor() {
+        this.canvas = document.getElementById('animationCanvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.animationId = null;
+        this.isRunning = false;
+        this.isPaused = false;
+        this.speed = 1;
+        this.score = 0;
+        this.pineappleImage = null;
+        this.imageLoaded = false;
+        
+        // Pineapple properties
+        this.eater = {
+          x: 100,
+          y: 200,
+          size: 80,
+          angle: 0,
+          mouthOpen: false,
+          mouthAngle: 0,
+          color: '#FFD700',
+          crownColor: '#228B22'
+        };
+        
+        this.victim = {
+          x: 450,
+          y: 200,
+          size: 60,
+          angle: 0,
+          scared: false,
+          shakeX: 0,
+          shakeY: 0,
+          color: '#FFD700',
+          crownColor: '#228B22',
+          beingEaten: false,
+          biteSize: 0
+        };
+        
+        this.particles = [];
+        this.biteMarks = [];
+        
+        this.loadImage();
+      }
+      
+      loadImage() {
+        this.pineappleImage = new Image();
+        this.pineappleImage.onload = () => {
+          this.imageLoaded = true;
+          this.init();
+        };
+        this.pineappleImage.onerror = () => {
+          console.log('Failed to load pineapple image, using fallback drawing');
+          this.imageLoaded = false;
+          this.init();
+        };
+        this.pineappleImage.src = 'pineapple-image.jpg';
+      }
+      
+      init() {
+        this.draw();
+        this.updateStats();
+      }
+      
+      drawPineapple(x, y, size, angle, crownColor, bodyColor, isScared = false) {
+        this.ctx.save();
+        this.ctx.translate(x, y);
+        this.ctx.rotate(angle);
+        
+        if (this.imageLoaded && this.pineappleImage) {
+          // Draw the loaded pineapple image
+          const imageSize = size * 0.8;
+          this.ctx.drawImage(
+            this.pineappleImage,
+            -imageSize / 2,
+            -imageSize / 2,
+            imageSize,
+            imageSize
+          );
+          
+          // Add scared expression overlay if needed
+          if (isScared) {
+            this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+            // Eyes
+            this.ctx.beginPath();
+            this.ctx.arc(-size * 0.15, -size * 0.1, size * 0.05, 0, Math.PI * 2);
+            this.ctx.fill();
+            this.ctx.beginPath();
+            this.ctx.arc(size * 0.15, -size * 0.1, size * 0.05, 0, Math.PI * 2);
+            this.ctx.fill();
+            
+            // Mouth
+            this.ctx.beginPath();
+            this.ctx.arc(0, size * 0.1, size * 0.08, 0, Math.PI);
+            this.ctx.strokeStyle = '#000';
+            this.ctx.lineWidth = 2;
+            this.ctx.stroke();
+          }
+        } else {
+          // Fallback to hand-drawn pineapple if image fails to load
+          // Draw crown (leaves)
+          this.ctx.fillStyle = crownColor;
+          for (let i = 0; i < 8; i++) {
+            const leafAngle = (i * Math.PI * 2) / 8;
+            const leafX = Math.cos(leafAngle) * (size * 0.4);
+            const leafY = Math.sin(leafAngle) * (size * 0.4) - size * 0.3;
+            
+            this.ctx.beginPath();
+            this.ctx.ellipse(leafX, leafY, size * 0.15, size * 0.3, leafAngle, 0, Math.PI * 2);
+            this.ctx.fill();
+          }
+          
+          // Draw body
+          this.ctx.fillStyle = bodyColor;
+          this.ctx.beginPath();
+          this.ctx.ellipse(0, 0, size * 0.4, size * 0.6, 0, 0, Math.PI * 2);
+          this.ctx.fill();
+          
+          // Draw pineapple pattern
+          this.ctx.fillStyle = '#8B4513';
+          for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 6; j++) {
+              const dotX = (j - 2.5) * size * 0.1;
+              const dotY = (i - 1.5) * size * 0.15;
+              this.ctx.beginPath();
+              this.ctx.arc(dotX, dotY, size * 0.03, 0, Math.PI * 2);
+              this.ctx.fill();
+            }
+          }
+          
+          // Draw scared face if needed
+          if (isScared) {
+            this.ctx.fillStyle = '#000';
+            // Eyes
+            this.ctx.beginPath();
+            this.ctx.arc(-size * 0.15, -size * 0.1, size * 0.05, 0, Math.PI * 2);
+            this.ctx.fill();
+            this.ctx.beginPath();
+            this.ctx.arc(size * 0.15, -size * 0.1, size * 0.05, 0, Math.PI * 2);
+            this.ctx.fill();
+            
+            // Mouth
+            this.ctx.beginPath();
+            this.ctx.arc(0, size * 0.1, size * 0.08, 0, Math.PI);
+            this.ctx.strokeStyle = '#000';
+            this.ctx.lineWidth = 2;
+            this.ctx.stroke();
+          }
+        }
+        
+        this.ctx.restore();
+      }
+      
+      drawMouth(x, y, size, mouthAngle) {
+        this.ctx.save();
+        this.ctx.translate(x, y);
+        this.ctx.rotate(mouthAngle);
+        
+        // Draw mouth with better styling for image-based pineapples
+        this.ctx.fillStyle = '#8B0000';
+        this.ctx.beginPath();
+        this.ctx.ellipse(0, size * 0.2, size * 0.25, size * 0.18, 0, 0, Math.PI * 2);
+        this.ctx.fill();
+        
+        // Draw teeth with better visibility
+        this.ctx.fillStyle = '#FFF';
+        this.ctx.strokeStyle = '#DDD';
+        this.ctx.lineWidth = 1;
+        for (let i = 0; i < 8; i++) {
+          const toothX = (i - 3.5) * size * 0.04;
+          this.ctx.beginPath();
+          this.ctx.moveTo(toothX, size * 0.15);
+          this.ctx.lineTo(toothX + size * 0.02, size * 0.28);
+          this.ctx.lineTo(toothX - size * 0.02, size * 0.28);
+          this.ctx.closePath();
+          this.ctx.fill();
+          this.ctx.stroke();
+        }
+        
+        // Add tongue
+        this.ctx.fillStyle = '#FF69B4';
+        this.ctx.beginPath();
+        this.ctx.ellipse(0, size * 0.25, size * 0.08, size * 0.05, 0, 0, Math.PI * 2);
+        this.ctx.fill();
+        
+        this.ctx.restore();
+      }
+      
+      drawParticles() {
+        this.particles.forEach((particle, index) => {
+          this.ctx.save();
+          this.ctx.globalAlpha = particle.alpha;
+          this.ctx.fillStyle = particle.color;
+          this.ctx.beginPath();
+          this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+          this.ctx.fill();
+          this.ctx.restore();
+          
+          particle.x += particle.vx;
+          particle.y += particle.vy;
+          particle.alpha -= 0.02;
+          particle.size *= 0.98;
+          
+          if (particle.alpha <= 0) {
+            this.particles.splice(index, 1);
+          }
+        });
+      }
+      
+      createParticles(x, y, color) {
+        for (let i = 0; i < 10; i++) {
+          this.particles.push({
+            x: x,
+            y: y,
+            vx: (Math.random() - 0.5) * 4,
+            vy: (Math.random() - 0.5) * 4,
+            size: Math.random() * 3 + 1,
+            alpha: 1,
+            color: color
+          });
+        }
+      }
+      
+      update() {
+        if (!this.isRunning || this.isPaused) return;
+        
+        // Update eater pineapple
+        this.eater.angle += 0.02 * this.speed;
+        this.eater.mouthAngle = Math.sin(Date.now() * 0.01) * 0.3;
+        
+        // Move eater towards victim
+        const dx = this.victim.x - this.eater.x;
+        const dy = this.victim.y - this.eater.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if (distance > 50) {
+          this.eater.x += (dx / distance) * 2 * this.speed;
+          this.eater.y += (dy / distance) * 2 * this.speed;
+        } else {
+          // Start eating!
+          this.victim.beingEaten = true;
+          this.victim.scared = true;
+          this.victim.shakeX = (Math.random() - 0.5) * 4;
+          this.victim.shakeY = (Math.random() - 0.5) * 4;
+          
+          // Reduce victim size
+          this.victim.biteSize += 0.5 * this.speed;
+          this.victim.size = Math.max(20, 60 - this.victim.biteSize);
+          
+          // Create particles
+          if (Math.random() < 0.3) {
+            this.createParticles(this.victim.x + this.victim.shakeX, this.victim.y + this.victim.shakeY, '#FFD700');
+          }
+          
+          // Increase score
+          this.score += 1;
+          
+          // Check if victim is completely eaten
+          if (this.victim.size <= 20) {
+            this.createParticles(this.victim.x, this.victim.y, '#FFD700');
+            this.resetVictim();
+          }
+        }
+        
+        // Update victim
+        if (this.victim.scared && !this.victim.beingEaten) {
+          this.victim.angle += 0.05 * this.speed;
+          this.victim.shakeX = (Math.random() - 0.5) * 2;
+          this.victim.shakeY = (Math.random() - 0.5) * 2;
+        }
+        
+        this.updateStats();
+      }
+      
+      resetVictim() {
+        this.victim.x = 450 + Math.random() * 100;
+        this.victim.y = 150 + Math.random() * 100;
+        this.victim.size = 60;
+        this.victim.scared = false;
+        this.victim.beingEaten = false;
+        this.victim.biteSize = 0;
+        this.victim.shakeX = 0;
+        this.victim.shakeY = 0;
+      }
+      
+      draw() {
+        // Clear canvas
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        // Draw background pattern
+        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+        for (let i = 0; i < this.canvas.width; i += 50) {
+          for (let j = 0; j < this.canvas.height; j += 50) {
+            this.ctx.fillRect(i, j, 2, 2);
+          }
+        }
+        
+        // Draw victim pineapple
+        this.drawPineapple(
+          this.victim.x + this.victim.shakeX,
+          this.victim.y + this.victim.shakeY,
+          this.victim.size,
+          this.victim.angle,
+          this.victim.crownColor,
+          this.victim.color,
+          this.victim.scared
+        );
+        
+        // Draw eater pineapple
+        this.drawPineapple(
+          this.eater.x,
+          this.eater.y,
+          this.eater.size,
+          this.eater.angle,
+          this.eater.crownColor,
+          this.eater.color
+        );
+        
+        // Draw mouth if close enough
+        const distance = Math.sqrt(
+          Math.pow(this.victim.x - this.eater.x, 2) + 
+          Math.pow(this.victim.y - this.eater.y, 2)
+        );
+        
+        if (distance < 100) {
+          this.drawMouth(this.eater.x, this.eater.y, this.eater.size, this.eater.mouthAngle);
+        }
+        
+        // Draw particles
+        this.drawParticles();
+        
+        // Draw eating effect
+        if (this.victim.beingEaten) {
+          this.ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
+          this.ctx.beginPath();
+          this.ctx.arc(this.victim.x, this.victim.y, this.victim.size + 10, 0, Math.PI * 2);
+          this.ctx.fill();
+        }
+      }
+      
+      animate() {
+        this.update();
+        this.draw();
+        this.animationId = requestAnimationFrame(() => this.animate());
+      }
+      
+      start() {
+        if (!this.isRunning) {
+          this.isRunning = true;
+          this.isPaused = false;
+          this.animate();
+        }
+      }
+      
+      pause() {
+        this.isPaused = !this.isPaused;
+        if (!this.isPaused && this.isRunning) {
+          this.animate();
+        }
+      }
+      
+      reset() {
+        this.isRunning = false;
+        this.isPaused = false;
+        this.score = 0;
+        this.eater.x = 100;
+        this.eater.y = 200;
+        this.resetVictim();
+        this.particles = [];
+        if (this.animationId) {
+          cancelAnimationFrame(this.animationId);
+        }
+        this.draw();
+        this.updateStats();
+      }
+      
+      toggleSpeed() {
+        this.speed = this.speed === 1 ? 2 : 1;
+        this.updateStats();
+      }
+      
+      updateStats() {
+        document.getElementById('score').textContent = this.score;
+        document.getElementById('speed').textContent = this.speed === 1 ? 'Normal' : 'Fast';
+      }
+    }
+    
+    // Initialize animation
+    const animation = new PineappleAnimation();
+    
+    // Global functions for buttons
+    function startAnimation() {
+      animation.start();
+    }
+    
+    function pauseAnimation() {
+      animation.pause();
+    }
+    
+    function resetAnimation() {
+      animation.reset();
+    }
+    
+    function toggleSpeed() {
+      animation.toggleSpeed();
+    }
+    
+    // Auto-start animation after a short delay
+    setTimeout(() => {
+      animation.start();
+    }, 1000);
+  </script>
+</body>
+</html>

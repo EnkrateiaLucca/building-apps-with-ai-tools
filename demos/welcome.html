@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucas Loves pancakes webpage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffd700;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .hero .instructor {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.9s forwards;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Course Overview */
+        .course-overview {
+            background: white;
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .overview-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+
+        .overview-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .overview-card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .overview-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Agenda Section */
+        .agenda {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 80px 0;
+            color: white;
+        }
+
+        .agenda-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .agenda-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .agenda-item:hover {
+            transform: scale(1.05);
+        }
+
+        .agenda-item .number {
+            background: rgba(255, 255, 255, 0.2);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        /* Tools Section */
+        .tools {
+            background: white;
+            padding: 80px 0;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .tool-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .tool-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-card h3 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        /* Target Audience */
+        .audience {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            padding: 80px 0;
+            color: white;
+        }
+
+        .audience-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .audience-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .audience-item h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #ffd700;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .overview-grid,
+            .agenda-list,
+            .tools-grid,
+            .audience-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Interactive Elements */
+        .interactive-element {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .interactive-element:hover {
+            transform: scale(1.05);
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <a href="#" class="logo">AI Tools Course</a>
+            <ul class="nav-links">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#agenda">Agenda</a></li>
+                <li><a href="#tools">Tools</a></li>
+                <li><a href="#audience">Audience</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Lucas Loves pancakes webpage</h1>
+            <p class="subtitle">Empower yourself to create functional applications using AI assistance</p>
+            <p class="instructor">Lucas Soares, Instructor • September 30, 2025</p>
+            <a href="#overview" class="cta-button interactive-element">Start Learning</a>
+        </div>
+    </section>
+
+    <!-- Course Overview -->
+    <section id="overview" class="course-overview">
+        <div class="container">
+            <h2 class="section-title fade-in">What This Course Is About</h2>
+            <div class="overview-grid">
+                <div class="overview-card fade-in interactive-element">
+                    <h3>🎯 Focused Learning</h3>
+                    <p>Learn how to be more productive with AI tools and leverage them effectively to build apps for yourself using pure HTML/JavaScript.</p>
+                </div>
+                <div class="overview-card fade-in interactive-element">
+                    <h3>🛠️ Practical Skills</h3>
+                    <p>Build tools for your own workflow needs and understand AI-assisted development without the complexity of commercial applications.</p>
+                </div>
+                <div class="overview-card fade-in interactive-element">
+                    <h3>🚀 Local-First</h3>
+                    <p>Create personal, local-first applications that solve real problems without relying on big tech platforms.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Agenda -->
+    <section id="agenda" class="agenda">
+        <div class="container">
+            <h2 class="section-title fade-in">Course Agenda</h2>
+            <div class="agenda-list">
+                <div class="agenda-item fade-in interactive-element">
+                    <div class="number">1</div>
+                    <h3>Methodology Notes</h3>
+                </div>
+                <div class="agenda-item fade-in interactive-element">
+                    <div class="number">2</div>
+                    <h3>What This Course Is and Is Not</h3>
+                </div>
+                <div class="agenda-item fade-in interactive-element">
+                    <div class="number">3</div>
+                    <h3>Motivation</h3>
+                </div>
+                <div class="agenda-item fade-in interactive-element">
+                    <div class="number">4</div>
+                    <h3>AI Tools</h3>
+                </div>
+                <div class="agenda-item fade-in interactive-element">
+                    <div class="number">5</div>
+                    <h3>Workflow for Building Apps</h3>
+                </div>
+                <div class="agenda-item fade-in interactive-element">
+                    <div class="number">6</div>
+                    <h3>Hands-on: Cursor/Claude Walkthrough</h3>
+                </div>
+                <div class="agenda-item fade-in interactive-element">
+                    <div class="number">7</div>
+                    <h3>Hands-on: Building A Simple Webpage</h3>
+                </div>
+                <div class="agenda-item fade-in interactive-element">
+                    <div class="number">8</div>
+                    <h3>Notes on Best Practices</h3>
+                </div>
+                <div class="agenda-item fade-in interactive-element">
+                    <div class="number">9</div>
+                    <h3>Hands-on: Building a Quiz App</h3>
+                </div>
+                <div class="agenda-item fade-in interactive-element">
+                    <div class="number">10</div>
+                    <h3>Extending capabilities with APIs</h3>
+                </div>
+                <div class="agenda-item fade-in interactive-element">
+                    <div class="number">11</div>
+                    <h3>Hands-on: Interactive Live Coding</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section id="tools" class="tools">
+        <div class="container">
+            <h2 class="section-title fade-in">Core Tools & Technologies</h2>
+            <div class="tools-grid">
+                <div class="tool-card fade-in interactive-element">
+                    <div class="tool-icon">🤖</div>
+                    <h3>Large Language Models</h3>
+                    <p>Claude, ChatGPT, Gemini for code generation and assistance</p>
+                </div>
+                <div class="tool-card fade-in interactive-element">
+                    <div class="tool-icon">💻</div>
+                    <h3>AI-enhanced IDEs</h3>
+                    <p>Cursor for intelligent code editing and assistance</p>
+                </div>
+                <div class="tool-card fade-in interactive-element">
+                    <div class="tool-icon">🌐</div>
+                    <h3>Frontend Technologies</h3>
+                    <p>HTML, CSS, JavaScript for building web applications</p>
+                </div>
+                <div class="tool-card fade-in interactive-element">
+                    <div class="tool-icon">💾</div>
+                    <h3>Local Storage</h3>
+                    <p>Everything stored locally for privacy and control</p>
+                </div>
+                <div class="tool-card fade-in interactive-element">
+                    <div class="tool-icon">🚀</div>
+                    <h3>Deployment</h3>
+                    <p>Simple deployment methods for personal applications</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience -->
+    <section id="audience" class="audience">
+        <div class="container">
+            <h2 class="section-title fade-in">Who This Course Is For</h2>
+            <div class="audience-list">
+                <div class="audience-item fade-in interactive-element">
+                    <h3>🔍 Technically Curious</h3>
+                    <p>Non-developers who want to learn how to build software with AI assistance</p>
+                </div>
+                <div class="audience-item fade-in interactive-element">
+                    <h3>⚡ Power Users</h3>
+                    <p>Low-code/no-code tool users looking to expand their capabilities</p>
+                </div>
+                <div class="audience-item fade-in interactive-element">
+                    <h3>🎯 Problem Solvers</h3>
+                    <p>Professionals looking to solve specific problems with custom applications</p>
+                </div>
+                <div class="audience-item fade-in interactive-element">
+                    <h3>🏘️ Community Builders</h3>
+                    <p>Individuals with specific software needs for their communities</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem;">
+                <p style="font-size: 1.2rem; font-style: italic;">
+                    If you've ever thought, <strong>"I wish there was an app for that."</strong> this course is for you.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="social-links">
+                <a href="https://github.com/EnkrateiaLucca/building-apps-with-ai-tools.git" target="_blank">📚 Course Materials</a>
+                <a href="https://www.linkedin.com/in/lucas-soares-969044167/" target="_blank">🔗 LinkedIn</a>
+                <a href="https://x.com/LucasEnkrateia" target="_blank">🐦 Twitter/X</a>
+                <a href="https://www.youtube.com/@automatalearninglab" target="_blank">📺 YouTube</a>
+            </div>
+            <p>Email: lucasenkrateia@gmail.com</p>
+            <p>&copy; 2025 Lucas Soares. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add floating animation to random elements
+        const floatingElements = document.querySelectorAll('.overview-card, .tool-card');
+        floatingElements.forEach((el, index) => {
+            if (index % 2 === 0) {
+                el.classList.add('floating');
+                el.style.animationDelay = `${index * 0.5}s`;
+            }
+        });
+
+        // Interactive hover effects for cards
+        document.querySelectorAll('.interactive-element').forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05) translateY(-5px)';
+            });
+            
+            element.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1) translateY(0)';
+            });
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Add click animations to buttons
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    background: rgba(255, 255, 255, 0.3);
+                    border-radius: 50%;
+                    transform: scale(0);
+                    animation: ripple 0.6s ease-out;
+                    pointer-events: none;
+                `;
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
